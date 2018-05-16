@@ -1,21 +1,25 @@
 # terraform-aws-strongdm
-Terraform Module for deploying StrongDM Relays on ECS Clusters
+Terraform Module for deploying [strongDM](https://www.strongdm.com) Relays on ECS Clusters
 
-In order to use this module you will need to generate a SDM_ADMIN_TOKEN. Set up for admin tokens can be found here: https://docs.strongdm.com/docs/guides/admin-tokens/
+In order to use this module you will need to generate a SDM_ADMIN_TOKEN. Set up for admin tokens can be found [here](https://docs.strongdm.com/docs/guides/admin-tokens/).
+
+## Task Placement
+
+By default, this service first tries to spread strongDM relays across the ECS cluster by host; the module also allows you to specify a secondary placement strategy, which is set by default to binpack based on memory.
 
 ----------------------
 
 #### Required
 - `region` - AWS region in which the EC2 Container Service cluster is located
 - `ecs_cluster` - EC2 Container Service cluster in which the service will be deployed (must already exist, the module will not create it).
-- `service_identifier` - Unique identifier for the service, used in naming resources.
-- `task_identifier` - Unique identifier for the task, used in naming resources.
 - `vpc_id` - ID of VPC in which ECS cluster is located
 - `ecs_cluster_arn` - ARN of ECS cluster in which the service will be deployed
 - `sdm_admin_token` - SDM_ADMIN_TOKEN: admin tokens to provide tokenized account access for fully automated strongDM use.
 
 #### Optional
 
+- `service_identifier` - Unique identifier for the service, used in naming resources (default: `strongdm`).
+- `task_identifier` - Unique identifier for the task, used in naming resources (default: `relay`).
 - `docker_image` - Docker image specification (default: asicsdigital/strongdm:latest ).
 - `ecs_desired_count` - Desired number of containers in the task (default 2)
 - `docker_command` - String to override CMD in Docker container (default "")
@@ -41,13 +45,12 @@ Usage
 ```hcl
 
 module "ecs_strongdm" {
-  source             = "github.com/asicsdigital/terraform-aws-strongdm"
+  source             = "github.com/asicsdigital/terraform-aws-strongdm:v1.0.0"
   region             = "${data.aws_region.current.name}"
-  vpc_id             = "${module.vpc.vpc_id}"
-  ecs_cluster_arn    = "${module.infra-svc.cluster_id}"
-  service_identifier = "sdm-${var.env}"
-  task_identifier    = "relay"
-  sdm_admin_token    = "<ASM_ADMIN_TOKEN>"
+  vpc_id             = "${data.vpc.my_vpc.vpc_id}"
+  ecs_cluster_arn    = "${data.aws_ecs_cluster.my_cluster.arn}"
+  task_identifier    = "relay01"
+  sdm_admin_token    = "<SDM_ADMIN_TOKEN>"
 }
 
 
@@ -55,7 +58,7 @@ module "ecs_strongdm" {
 
 #### Docker Image
 
-This module defaults to use the `asicsdigital/strongdm:latest' Docker image. This Image is built from the Dockerfile in this repo, using the command script in `files/entrypoint.sh` It should work with no changes needed, but should you wish to use the upstream `quay.io/sdmrepo/relay` image, or a custom image, you can pass in the image name to this module.  
+This module defaults to use the `asicsdigital/strongdm:latest` Docker image. This Image is built from the Dockerfile in this repo, using the command script in `files/entrypoint.sh` It should work with no changes needed, but should you wish to use the upstream `quay.io/sdmrepo/relay` image, or a custom image, you can pass in the image name to the `docker_image` prameter.
 
 Outputs
 =======
