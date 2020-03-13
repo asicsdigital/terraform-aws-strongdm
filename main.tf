@@ -18,7 +18,7 @@ locals {
     },
     {
       "name"  = "ENABLE_SDM_GATEWAY"
-      "value" = "%{ if var.enable_sdm_gateway != "null" }${var.enable_sdm_gateway}%{ else }true%{ endif }"
+      "value" = "%{ if var.enable_sdm_gateway != "null" }${var.enable_sdm_gateway}%{ else }false%{ endif }"
     },
     {
       "name"  = "SDM_GATEWAY_LISTEN_APP_PORT"
