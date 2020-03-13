@@ -125,7 +125,7 @@ variable "ecs_log_retention" {
 variable "enable_sdm_gateway" {
   type = string
   description = "Should the sdm relay also be a gateway? default false"
-  default     = "false"
+  default     = ""
 }
 
 variable "sdm_gateway_listen_app_port" {

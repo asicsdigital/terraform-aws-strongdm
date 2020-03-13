@@ -7,3 +7,8 @@
 
 # editors
 .idea
+
+#env
+
+.env
+.envrc
