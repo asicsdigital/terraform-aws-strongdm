@@ -1,7 +1,7 @@
 variable "docker_image" {
   type        = string
-  description = "Docker image to use (default: asicsdigital/strongdm:latest )"
-  default     = "asicsdigital/strongdm:latest"
+  description = "Docker image to use (default: asicsdigital/strongdm:build-34 )"
+  default     = "asicsdigital/strongdm:build-34"
 }
 
 variable "ecs_cluster_arn" {

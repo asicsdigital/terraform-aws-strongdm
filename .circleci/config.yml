@@ -32,7 +32,7 @@ jobs:
             fi
             # setup proper tags and BUILD_ENV
             if [[ "$CIRCLE_BRANCH" = "master"  ]]; then
-              DOCKER_TAG=latest
+              DOCKER_TAG=build-34
               DOCKER_BUILD_TAG="build-${CIRCLE_BUILD_NUM}"
               should_push_commit=yes
             fi
