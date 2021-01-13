@@ -143,3 +143,8 @@ variable "ecs_cluster_extra_access_sg_id" {
   description = "ECS extra access Security Group ID to attach a security_group_rule to for strongdm gateway inbound traffic. Note cannot contain inline rule blocks."
   default     = ""
 }
+
+variable "aws_profile" {
+  description = "Which AWS profile is should be used? Defaults to \"default\""
+  default     = "default"
+}
