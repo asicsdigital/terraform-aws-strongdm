@@ -16,7 +16,7 @@ variable "region" {
 }
 
 variable "sdm_admin_token" {
-  type = string
+  type        = string
   description = "SDM_ADMIN_TOKEN: admin tokens to provide tokenized account access for fully automated strongDM use."
 }
 
@@ -123,13 +123,13 @@ variable "ecs_log_retention" {
 }
 
 variable "enable_sdm_gateway" {
-  type = string
+  type        = string
   description = "Should the sdm relay also be a gateway? default false"
   default     = "false"
 }
 
 variable "sdm_gateway_listen_app_port" {
-  type = string
+  type        = string
   description = "Port for SDM gateway to listen on inside container"
   default     = "5000"
 }
