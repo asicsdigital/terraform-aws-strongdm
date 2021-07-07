@@ -148,3 +148,8 @@ variable "aws_profile" {
   description = "Which AWS profile is should be used? Defaults to \"default\""
   default     = "default"
 }
+
+variable "launch_type" {
+  description = "Launch type on which to run your service. The valid values are `EC2`, `FARGATE`, and `EXTERNAL`."
+  default     = "EC2"
+}
